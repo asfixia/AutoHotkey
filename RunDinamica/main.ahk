@@ -31,7 +31,8 @@ selectDinamica() {
 }
 
 logMsg(stringValue) {
-	DebugWindow(stringValue,Clear:=0,LineBreak:=1,Sleep=500)
+	if (varExist(DebugWindow))
+		DebugWindow(stringValue,Clear:=0,LineBreak:=1,Sleep=500)
 	stdout := FileOpen("*", "w")
 	stdout.Write(stringValue)
 	file.Close()
@@ -46,6 +47,10 @@ backToAHK() {
 	
 }
 
+varExist(ByRef v) { ; Requires 1.0.46+
+	return &v = &n ? 0 : v = "" ? 2 : 1 
+}
+
 okBtn := "ok_btn.png"
 runBtn := "run_btn.png"
 logMsg("Screen W: " . A_ScreenWidth . " H: " . a_screenHeight)
@@ -55,4 +60,4 @@ selectDinamica()
 clickAtImageCenter(okBtn)
 Sleep, 500
 clickAtImageCenter(runBtn)
-backToAHK()
+;backToAHK()
